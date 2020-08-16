@@ -6,16 +6,6 @@ from sklearn.ensemble import RandomForestRegressor
 
 features = pd.read_csv('voice.csv')
 
-#analysis
-"""
-print(features.head(5))
-
-print('The shape of our features is:', features.shape)
-
-# Descriptive statistics for each column
-print(features.describe())
-"""
-
 #convert genders to 0 and 1
 for i in range(len(features["label"])):
     if features["label"][i] == "male":
@@ -35,14 +25,6 @@ features = np.array(features)
 #Split the data into training and testing sets
 train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size = 0.25, 
                                                                             random_state = 19)
-
-"""
-print('Training Features Shape:', train_features.shape)
-print('Training Labels Shape:', train_labels.shape)
-print('Testing Features Shape:', test_features.shape)
-print('Testing Labels Shape:', test_labels.shape)
-"""
-
 #Establish a baseline prediction to beat
 baseline_preds = np.full((792, 1), 0, dtype=int) #assumes all female
 
@@ -61,5 +43,5 @@ predictions = rfr.predict(test_features)
 
 errors = abs(predictions - test_labels)
 
-#Calculare accuracy using mean absolute percentage error
+#Calculate accuracy using mean absolute percentage error
 print('Average model error: ', round(np.mean(errors), 2)) #Average baseline error:  0.49
